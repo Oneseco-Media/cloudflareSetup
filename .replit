@@ -1,4 +1,4 @@
-run = ".config/setup.sh"
+run = "npm run replit-run-command"
 entrypoint = "index.ts"
 
 hidden = [".config"]
@@ -26,3 +26,15 @@ channel = "stable-22_11"
 
 [gitHubImport]
 requiredFiles = [".replit", "replit.nix", ".config"]
+
+[[ports]]
+localPort = 8787
+externalPort = 80
+
+[[ports]]
+localPort = 9229
+externalPort = 3000
+exposeLocalhost = true
+
+[agent]
+expertMode = true
