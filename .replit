@@ -2,7 +2,7 @@ run = "npm run replit-run-command"
 entrypoint = "index.ts"
 
 hidden = [".config"]
-modules = ["python-3.11"]
+modules = ["python-3.11", "bun"]
 
 [languages.typescript]
 pattern = "**/{*.ts,*.js,*.tsx,*.jsx}"
@@ -29,6 +29,10 @@ channel = "stable-22_11"
 requiredFiles = [".replit", "replit.nix", ".config"]
 
 [[ports]]
+localPort = 5000
+externalPort = 5000
+
+[[ports]]
 localPort = 8787
 externalPort = 80
 
@@ -41,6 +45,7 @@ exposeLocalhost = true
 expertMode = true
 
 [workflows]
+runButton = "Project"
 
 [[workflows.workflow]]
 name = "HF CLI"
@@ -50,3 +55,24 @@ author = 12737802
 [[workflows.workflow.tasks]]
 task = "shell.exec"
 args = "curl -LsSf https://hf.co/cli/install.sh | bash"
+
+[[workflows.workflow]]
+name = "Project"
+mode = "parallel"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "bun-server"
+
+[[workflows.workflow]]
+name = "bun-server"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "bun src/index.ts"
+waitForPort = 5000
+
+[workflows.workflow.metadata]
+outputType = "webview"
