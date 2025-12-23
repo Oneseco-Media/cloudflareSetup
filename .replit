@@ -2,6 +2,7 @@ run = "npm run replit-run-command"
 entrypoint = "index.ts"
 
 hidden = [".config"]
+modules = ["python-3.11"]
 
 [languages.typescript]
 pattern = "**/{*.ts,*.js,*.tsx,*.jsx}"
@@ -38,3 +39,14 @@ exposeLocalhost = true
 
 [agent]
 expertMode = true
+
+[workflows]
+
+[[workflows.workflow]]
+name = "HF CLI"
+mode = "sequential"
+author = 12737802
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "curl -LsSf https://hf.co/cli/install.sh | bash"
